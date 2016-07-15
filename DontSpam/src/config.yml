@@ -1,0 +1,31 @@
+#Don't spam! configuration file
+
+#When set to true, when a message is blocked, the player who sent it still receives it.
+#This way the player won't try to circumvent the protection.
+#default: true
+sendMessageToPlayer: true
+
+#The message sent when a player spams the chat
+#Not sent if sendMessageOnlyToPlayer is true
+#default: '&cDon''t spam!'
+spamChatMessage: '&cDon''t spam!'
+
+#The message sent when a player spams commands
+#default: '&cDon''t spam!'
+spamCommandsMessage: '&cDon''t spam!'
+
+#The number of times a player can repeat a message before it's blocked
+#default: 3 (0 = disabled)
+allowedRepeatsChat: 3
+
+#The number of times a player can repeat a command before it's blocked
+#default: 3 (0 = disabled)
+allowedRepeatsCommands: 3
+
+#Block message if sent in only capital letters
+#default: true
+blockCaps: true
+
+#Message sent when a player uses only capital letters in chat
+#default: '&cDON''T SHOUT'
+capsMessage: '&cDON''T SHOUT'

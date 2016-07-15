@@ -1,0 +1,8 @@
+name: DontSpam
+version: 1.0
+author: Marti201
+main: me.marti201.dontspam.DontSpam
+commands:
+  dontspam:
+    usage: /dontspam
+    description: Don't spam! main command
