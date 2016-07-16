@@ -10,7 +10,7 @@ public class SpamPlayer {
 		if (DontSpam.allowedRepeatsChat <= 0)
 			return false; // Return false if disabled
 		
-		if (lastChat != null && lastChat.equalsIgnoreCase(message))
+		if (lastChat != null && message.contains(lastChat))
 			repeatsChat++;
 		else {
 			repeatsChat = 0;
@@ -25,7 +25,7 @@ public class SpamPlayer {
 		if (DontSpam.allowedRepeatsCommands <= 0)
 			return false;// Return false if disabled
 		
-		if (lastCommand != null && lastCommand.equalsIgnoreCase(cmd))
+		if (lastCommand != null && lastCommand.equals(cmd))
 			repeatsCommand++;
 		else {
 			repeatsCommand = 0;
