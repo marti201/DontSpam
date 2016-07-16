@@ -1,5 +1,6 @@
 package me.marti201.dontspam;
 
+import java.io.IOException;
 import java.util.HashMap;
 import java.util.UUID;
 
@@ -16,6 +17,8 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import me.marti201.dontspam.Metrics.Graph;
 
 public class DontSpam extends JavaPlugin implements Listener, CommandExecutor {
 
@@ -36,6 +39,9 @@ public class DontSpam extends JavaPlugin implements Listener, CommandExecutor {
 		saveDefaultConfig();
 
 		conf();
+		
+		//Metrics
+		setupMetrics();
 	}
 
 	private void conf() {
@@ -133,5 +139,58 @@ public class DontSpam extends JavaPlugin implements Listener, CommandExecutor {
 		}
 
 	}
+	
+	//mcstats.org
+	private void setupMetrics(){
+		try {
+		    Metrics metrics = new Metrics(this);
+		    
+		    //onlyToPlayer graph
+
+		    Graph onlyPlayerGraph = metrics.createGraph("When a message is blocked, the player who sent it still receives it");
+		    
+		    onlyPlayerGraph.addPlotter(new Metrics.Plotter("Enabled") {
+				
+				@Override
+				public int getValue() {
+					return onlyToPlayer ? 1 : 0;
+				}
+			});
+		    
+		    onlyPlayerGraph.addPlotter(new Metrics.Plotter("Disabled") {
+				
+				@Override
+				public int getValue() {
+					return onlyToPlayer ? 0 : 1;
+				}
+			});
+		    
+		    //capsMessage graph
+		    
+		    Graph capsGraph = metrics.createGraph("Block messages if written with caps lock enabled");
+		    
+		    capsGraph.addPlotter(new Metrics.Plotter("Enabled") {
+				
+				@Override
+				public int getValue() {
+					return blockCaps ? 1 : 0;
+				}
+			});
+		    
+		    capsGraph.addPlotter(new Metrics.Plotter("Disabled") {
+				
+				@Override
+				public int getValue() {
+					return blockCaps ? 0 : 1;
+				}
+			});
+
+		    metrics.start();
+		} catch (IOException e) {
+		    getLogger().warning("Exception while sending metrics: "+e.getMessage());
+		}
+	}
+	
+	
 
 }
